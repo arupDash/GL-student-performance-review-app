@@ -7,3 +7,4 @@
 
 With these steps it should spin up a development server http://localhost:3000 and open the wep page on your lcoal machine and bring up the application.
 
+***This application make use of boootstrap.css CDN link. Please stay connected to internet for better experience***
