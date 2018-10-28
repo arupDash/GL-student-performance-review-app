@@ -6,6 +6,6 @@
 3. Run `npm install` to install all the dependencies
 4. Run `npm start`..
 
-With these steps it should spin up a development server http://localhost:3000 and open the wep page on your lcoal machine and bring up the application.
+With these steps a development server should spin up, serving the wep application @http://localhost:3000
 
 ***This application make use of boootstrap.css CDN link. Please stay connected to internet for better experience***
