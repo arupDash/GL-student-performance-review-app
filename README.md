@@ -8,4 +8,4 @@
 
 With these steps, a development server should spin up, serving the wep application @http://localhost:3000
 
-***This application make use of boootstrap.css CDN link. Please stay connected to internet for better experience***
+***This application makes use of boootstrap.css CDN link. Please stay connected to internet for better experience***
