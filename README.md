@@ -6,6 +6,6 @@
 3. Run `npm install` to install all the dependencies
 4. Run `npm start`..
 
-With these steps a development server should spin up, serving the wep application @http://localhost:3000
+With these steps, a development server should spin up, serving the wep application @http://localhost:3000
 
-***This application make use of boootstrap.css CDN link. Please stay connected to internet for better experience***
+***This application makes use of boootstrap.css CDN link. Please stay connected to internet for better experience***
