@@ -14,7 +14,7 @@ export class StudentInfo extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            student : nextProps.student
+            student: nextProps.student
         })
     }
 
@@ -39,7 +39,10 @@ export class StudentInfo extends Component {
 
         return (
             <tr className={grade.bgColor}>
-            <td className="form-control"><input type="checkbox" name="" id=""/></td>
+                <td>
+                    <input className="form-check-input" type="checkbox" style={{marginLeft : '0'}}
+                    onChange={(e) => {this.props.onSelectTableRow(this.state.student, e.target.checked)}} />
+                </td>
                 <th scope="row">{this.props.id + 1}</th>
                 <td>
                     <input type="text"

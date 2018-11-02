@@ -9,23 +9,48 @@ export class StudentSummary extends Component {
         super();
         this.state = {
             showForm: false,
-            studentList: []
+            studentList: [],
+            selectedStds: []
         }
         this.storageService = new StorageService();
     }
 
     componentWillMount() {
-        const DB_ITEMS = this.storageService.getAllStudents(); 
+        const DB_ITEMS = this.storageService.getAllStudents();
         !DB_ITEMS ? this.storageService.initializeDB() : console.log(' DB : already intialized');
         this.setState({
-            studentList: DB_ITEMS
+            studentList: this.storageService.getAllStudents()
         })
     }
+    onSelectTableRow = (student, selected) => {
+        if (selected) {
+            this.setState({ selectedStds: [...this.state.selectedStds, student] }, ()=> {
+                // console.log(this.state.selectedStds)
+            });
+        } else {
+            this.setState({
+                selectedStds: this.state.selectedStds.filter(std => {
+                    return student.id !== std.id
+                })
+            }, ()=> {
+                // console.log(this.state.selectedStds)
+            })
+        }
 
+        
+    }
+
+    onDelete = ()=> {
+        this.storageService.removeItems(this.state.selectedStds)
+        console.log( this.storageService.getAllStudents())
+        this.setState({
+            studentList : this.storageService.getAllStudents(),
+        })
+    } 
     onChangeStudentList = (student, action) => {
         if (action === 'ADD') {
             this.storageService.addItem(student);
-            this.setState({ 
+            this.setState({
                 studentList: this.storageService.getAllStudents()
             })
         } else if (action === 'CHANGE') {
@@ -47,16 +72,24 @@ export class StudentSummary extends Component {
                             onClick={() => { this.setState({ showForm: !this.state.showForm }) }}>
                             {this.state.showForm ? 'Hide' : 'Add'}
                         </button>
-                        <button className="btn btn-danger d-inline-block my-5">Delete</button>
+                        <button className="btn btn-danger d-inline-block my-5" onClick={this.onDelete}>Delete</button>
                     </div>
                     {this.state.showForm ? <AddStudent onChangeStudentList={this.onChangeStudentList} /> : ''}
                 </div>
                 <div>
                     <StudentTable studentList={this.state.studentList}
-                        changeStudentList={this.onChangeStudentList} />
+                        changeStudentList={this.onChangeStudentList} onSelectTableRow={this.onSelectTableRow} />
                 </div>
             </div>
         )
     }
-    
+
+    ifExist = (student) => {
+        let exist;
+        this.state.studentList.forEach((std) => {
+            if (student.id === std.id) exist = true;
+        })
+        return exist;
+    }
 }
+

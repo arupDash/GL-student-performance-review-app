@@ -27,19 +27,25 @@ export class StorageService {
         }
     }
 
-    removeItem(id) {
-        let items = this.db.getItems(this.DB_NAME);
-        const filteredItems = items.filter(std => {
-            if(std.id !== id) return std
-            return null;
-        })
-        this.db.setStudentTable(this.DB_NAME, filteredItems);
+    removeItems(removeStudents) {
+        let filteredStudents = [];
+        let existingStudents = this.db.getItems(this.DB_NAME);
+        // console.log(existingStudents);
+
+        filteredStudents=  existingStudents.filter(rStd => {
+            if(!this.ifExist(removeStudents, rStd)) return rStd  
+            else {
+                return null;
+            }
+        });
+        console.log(existingStudents, removeStudents, filteredStudents);
+        this.db.setStudentTable(this.DB_NAME, filteredStudents);
     }
 
     changeItem(student) {
         let items = this.db.getItems(this.DB_NAME);
         const filteredItems = items.map(std => {
-            if(std.id !== student.id) return std
+            if (std.id !== student.id) return std
             return student;
         })
         this.db.setStudentTable(this.DB_NAME, filteredItems);
@@ -57,5 +63,13 @@ export class StorageService {
         } else {
             // return null;
         }
+    }
+
+    ifExist = (arr, student) => {
+        let exist;
+        arr.forEach((std) => {
+            if (student.id === std.id) exist = true;
+        })
+        return exist;
     }
 }
