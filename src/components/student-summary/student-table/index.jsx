@@ -5,15 +5,15 @@ import { StudentInfo } from './student-info';
 export function StudentTable(props) {
 
     return (
-        <div className="mx-auto" style={{ width: '720px' }}>
-            <table className="table table-bordered">
+        <div className="mx-auto">
+            <table className="table table-bordered border-dark" >
                 <thead>
                     <tr>
                         <th scope="col"></th>
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Score</th>
-                        <th scope="col">Grade</th>
+                        {/* <th scope="col">Grade</th> */}
                     </tr>
                 </thead>
                 <tbody>

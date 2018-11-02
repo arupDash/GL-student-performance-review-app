@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { StudentTable } from './student-table/';
 import { AddStudent } from './add-student/';
+import { StudentSummary } from './student-summary';
 import { StorageService } from '../../core/services/storage.service';
 
-export class StudentSummary extends Component {
+export class StudentDetails extends Component {
 
     constructor() {
         super();
@@ -63,8 +64,8 @@ export class StudentSummary extends Component {
     render() {
         return (
             <div className="jumbotron bg-white">
-                <h1 className="display-5">Student Performance Review</h1>
-                <p className="lead">A test review application for teachers</p>
+                <h1 className="display-5">Student Performance Management</h1>
+                <p className="lead">A test management application for teachers</p>
                 <hr className="my-1" />
                 <div className="row">
                     <div className="col-md-3">
@@ -76,20 +77,18 @@ export class StudentSummary extends Component {
                     </div>
                     {this.state.showForm ? <AddStudent onChangeStudentList={this.onChangeStudentList} /> : ''}
                 </div>
-                <div>
-                    <StudentTable studentList={this.state.studentList}
+                <div className="row">
+                <div className="col-8" style={{borderRight : '1px solid #181818'}}>
+                <StudentTable studentList={this.state.studentList}
                         changeStudentList={this.onChangeStudentList} onSelectTableRow={this.onSelectTableRow} />
+                </div>
+                <div className="col-4">
+                <StudentSummary studentList={this.state.studentList}/>
+                
+                </div>
                 </div>
             </div>
         )
-    }
-
-    ifExist = (student) => {
-        let exist;
-        this.state.studentList.forEach((std) => {
-            if (student.id === std.id) exist = true;
-        })
-        return exist;
     }
 }
 

@@ -10,6 +10,7 @@ export class StudentInfo extends Component {
         }
         this.onStudentNameChange = this.onStudentNameChange.bind(this);
         this.onStudentScoreChange = this.onStudentScoreChange.bind(this);
+        this.onMouseLeaveEvnt = this.onMouseLeaveEvnt.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -21,19 +22,21 @@ export class StudentInfo extends Component {
     onStudentNameChange(e) {
         this.setState({
             student: { ...this.state.student, name: e.target.value }
-        }, () => {
-            this.props.changeStudentList(this.state.student, this.state.action);
         })
     }
 
     onStudentScoreChange(e) {
-        this.setState({
-            student: { ...this.state.student, score: e.target.value }
-        }, () => {
-            this.props.changeStudentList(this.state.student, this.state.action);
-        })
+        const testVal = /^[0-9\b]+$/;
+        if (e.target.value === '' || testVal.test(e.target.value)) {
+            this.setState({
+                student: { ...this.state.student, score: e.target.value }
+            })
+        }
     }
 
+    onMouseLeaveEvnt() {
+        this.props.changeStudentList(this.state.student, this.state.action);
+    }
     render() {
         const grade = calcGradeFrmScore(this.state.student.score);
 
@@ -56,11 +59,14 @@ export class StudentInfo extends Component {
                         aria-label="score"
                         className="form-control w-50 mx-auto"
                         onChange={this.onStudentScoreChange}
-                        value={this.state.student.score} />
+                        onBlur={this.onMouseLeaveEvnt}
+                        value={this.state.student.score} style={{float : 'left'}}/>
+                       
+            {grade.bgColor ?  <span class="badge badge-light d-inline-block" style={{marginLeft : '20px'}}>failed</span> : ''}
                 </td>
-                <td>
+                {/* <td>
                     <span className="w-75">{grade.value}</span>
-                </td>
+                </td> */}
             </tr>
         )
     }
@@ -68,12 +74,8 @@ export class StudentInfo extends Component {
 
 let calcGradeFrmScore = (score) => {
     if (parseInt(score) < 65) {
-        return { value: 'Min', bgColor: 'table-danger' }
-    } else if (score >= 65 && score <= 80) {
-        return { value: 'Avg', bgColor: 'table-warning' }
-    } else if (score > 80) {
-        return { value: 'Max', bgColor: 'table-success' }
-    } else {
-        return { value: 'Min', bgColor: 'table-danger' }
+        return { bgColor: 'table-danger' }
+    } else{
+        return { bgColor: '' }
     }
 }
