@@ -26,6 +26,7 @@ export class AddStudent extends Component {
 
     addStudent = () => {
         if (this.state.studentProperties.name && this.state.studentProperties.score) {
+            this.setState({ errMsg: false });
             this.props.onChangeStudentList(this.state.studentProperties, this.state.action)
         } else {
             this.setState({ errMsg: true });
@@ -34,7 +35,7 @@ export class AddStudent extends Component {
     render() {
         return (
             <div className="col-md-9">
-                {this.state.errMsg ? <p className="mx-auto text-danger font-weight-bold">* Enter all the required fields</p> : ''}
+                {this.state.errMsg ? <p className="mx-auto text-danger font-weight-bold" style={{fontSize : '1rem'}}>* Enter all the required fields</p> : ''}
                 <form className='form-inline my-4'>
                     <div className="input-group mb-2 mr-sm-2">
                         <div className="input-group-prepend">

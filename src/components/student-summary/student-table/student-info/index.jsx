@@ -62,7 +62,7 @@ export class StudentInfo extends Component {
                         onBlur={this.onMouseLeaveEvnt}
                         value={this.state.student.score} style={{float : 'left'}}/>
                        
-            {grade.bgColor ?  <span class="badge badge-light d-inline-block" style={{marginLeft : '20px'}}>failed</span> : ''}
+            {grade.bgColor ?  <span className="badge badge-light d-inline-block" style={{marginLeft : '20px'}}>failed</span> : ''}
                 </td>
                 {/* <td>
                     <span className="w-75">{grade.value}</span>

@@ -5,8 +5,7 @@ import { StudentInfo } from './student-info';
 export function StudentTable(props) {
 
     return (
-        <div className="mx-auto">
-            <table className="table table-bordered border-dark" >
+            <table className="table table-bordered border-dark mx-auto" style={{width : '720px'}}>
                 <thead>
                     <tr>
                         <th scope="col"></th>
@@ -20,7 +19,6 @@ export function StudentTable(props) {
                     {getStudentRecords(props.studentList, props.changeStudentList, props.onSelectTableRow)}
                 </tbody>
             </table>
-        </div>
     )
 }
 
