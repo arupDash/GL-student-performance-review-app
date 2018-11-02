@@ -5,6 +5,7 @@
 2. Clone the repo using `git clone https://github.com/arupDash/GL-student-performance-review-app.git`
 3. Run `npm install` to install all the dependencies
 4. Run `npm start`..
+5. Persistent data is made avilable trough local-storage, your browser may prompt for enabling cookie if not "on".
 
 With these steps, a development server should spin up, serving the wep application @http://localhost:3000
 
