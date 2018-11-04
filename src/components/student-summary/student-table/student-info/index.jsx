@@ -6,7 +6,7 @@ export class StudentInfo extends Component {
         super(props);
         this.state = {
             student: props.student,
-            action: 'CHANGE'
+            action: 'CHANGE',
         }
         this.onStudentNameChange = this.onStudentNameChange.bind(this);
         this.onStudentScoreChange = this.onStudentScoreChange.bind(this);

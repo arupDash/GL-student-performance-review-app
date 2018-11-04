@@ -9,6 +9,7 @@ export class StudentDetails extends Component {
     constructor() {
         super();
         this.state = {
+            studentExist: false,
             showForm: false,
             studentList: [],
             selectedStds: []
@@ -25,16 +26,12 @@ export class StudentDetails extends Component {
     }
     onSelectTableRow = (student, selected) => {
         if (selected) {
-            this.setState({ selectedStds: [...this.state.selectedStds, student] }, () => {
-                // console.log(this.state.selectedStds)
-            });
+            this.setState({ selectedStds: [...this.state.selectedStds, student] });
         } else {
             this.setState({
                 selectedStds: this.state.selectedStds.filter(std => {
                     return student.id !== std.id
                 })
-            }, () => {
-                // console.log(this.state.selectedStds)
             })
         }
 
@@ -43,17 +40,30 @@ export class StudentDetails extends Component {
 
     onDelete = () => {
         this.storageService.removeItems(this.state.selectedStds)
-        console.log(this.storageService.getAllStudents())
         this.setState({
             studentList: this.storageService.getAllStudents(),
         })
     }
-    onChangeStudentList = (student, action) => {
-        if (action === 'ADD') {
+
+    checkForAvailabilityandAdd(student) {
+        let ifExist = false;
+        this.state.studentList.forEach(std => {
+            if (std.name.trim() === student.name.trim()) ifExist = true;
+        })
+
+        if (!ifExist) {
             this.storageService.addItem(student);
             this.setState({
-                studentList: this.storageService.getAllStudents()
+                studentList: this.storageService.getAllStudents(),
+                studentExist: false
             })
+        } else {
+            this.setState({ studentExist: true })
+        }
+    }
+    onChangeStudentList = (student, action) => {
+        if (action === 'ADD') {
+            this.checkForAvailabilityandAdd(student) 
         } else if (action === 'CHANGE') {
             this.storageService.changeItem(student);
             this.setState({
@@ -67,8 +77,8 @@ export class StudentDetails extends Component {
                 <div className="jumbotron bg-white" style={{ padding: '1rem 2rem' }}>
                     <div className="row">
                         <div className="col-6">
-                            <h1 style={{fontSize : '2rem'}}>Student Performance Management</h1>
-                            <p className="lead"  style={{fontSize : '1rem'}}>A test management application for teachers</p>
+                            <h1 style={{ fontSize: '2rem' }}>Student Performance Management</h1>
+                            <p className="lead" style={{ fontSize: '1rem' }}>A test management application for teachers</p>
                         </div>
                         <div className="col-6">
                             <StudentSummary studentList={this.state.studentList} />
@@ -83,7 +93,7 @@ export class StudentDetails extends Component {
                             </button>
                             <button className="btn btn-danger d-inline-block my-5" onClick={this.onDelete}>Delete</button>
                         </div>
-                        {this.state.showForm ? <AddStudent onChangeStudentList={this.onChangeStudentList} /> : ''}
+                        {this.state.showForm ? <AddStudent onChangeStudentList={this.onChangeStudentList} studentExist={this.state.studentExist}/> : ''}
                     </div>
 
                     <StudentTable studentList={this.state.studentList}

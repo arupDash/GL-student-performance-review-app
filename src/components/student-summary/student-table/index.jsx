@@ -4,6 +4,7 @@ import { StudentInfo } from './student-info';
 
 export function StudentTable(props) {
 
+
     return (
             <table className="table table-bordered border-dark mx-auto" style={{width : '720px'}}>
                 <thead>
@@ -16,13 +17,15 @@ export function StudentTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {getStudentRecords(props.studentList, props.changeStudentList, props.onSelectTableRow)}
+                    {getStudentRecords(props.studentList, props.changeStudentList, props.onSelectTableRow, props.studentExist)}
                 </tbody>
             </table>
     )
 }
 
-let getStudentRecords = (studentList, changeStudentList, onSelectTableRow) =>
+let getStudentRecords = (studentList, changeStudentList, onSelectTableRow, studentExist) =>
 changeStudentList ? studentList.map((student, index) =>
-        <StudentInfo onSelectTableRow={onSelectTableRow} key={index} student={student} id={index} changeStudentList={changeStudentList}/>
+        <StudentInfo onSelectTableRow={onSelectTableRow} key={index} student={student} 
+        id={index} changeStudentList={changeStudentList}
+        studentExist={studentExist}/>
     ) : null;

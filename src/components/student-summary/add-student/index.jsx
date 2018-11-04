@@ -34,8 +34,9 @@ export class AddStudent extends Component {
     }
     render() {
         return (
-            <div className="col-md-9">
+            <div className="col-md-9 mt-4">
                 {this.state.errMsg ? <p className="mx-auto text-danger font-weight-bold" style={{fontSize : '1rem'}}>* Enter all the required fields</p> : ''}
+                {this.props.studentExist ? <p className="mx-auto text-danger font-weight-bold" style={{fontSize : '1rem'}}>* Student Already Exist</p> : ''}
                 <form className='form-inline my-4'>
                     <div className="input-group mb-2 mr-sm-2">
                         <div className="input-group-prepend">

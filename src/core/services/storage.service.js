@@ -30,15 +30,12 @@ export class StorageService {
     removeItems(removeStudents) {
         let filteredStudents = [];
         let existingStudents = this.db.getItems(this.DB_NAME);
-        // console.log(existingStudents);
-
         filteredStudents=  existingStudents.filter(rStd => {
             if(!this.ifExist(removeStudents, rStd)) return rStd  
             else {
                 return null;
             }
         });
-        console.log(existingStudents, removeStudents, filteredStudents);
         this.db.setStudentTable(this.DB_NAME, filteredStudents);
     }
 
@@ -50,18 +47,12 @@ export class StorageService {
         })
         this.db.setStudentTable(this.DB_NAME, filteredItems);
     }
-    // removeAllItems() {
-    //     this.db.clear();
-    // }
-
     getAllStudents() {
         const students = this.db.getItems(this.DB_NAME);
         if (students) {
             return students.map(student => {
                 return new StudentDesc(student.id, student.name, student.score)
             })
-        } else {
-            // return null;
         }
     }
 
